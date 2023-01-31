@@ -1,0 +1,47 @@
+.App {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+}
+.page-content {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.side-nav {
+  padding: 2rem 1rem 0 1rem;
+  height: 100%;
+  width: 250px;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(42, 42, 42);
+}
+
+.nav-header {
+  font-size: x-large;
+  padding: 1rem;
+  text-align: left;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.nav-link {
+  padding: 1rem;
+  text-align: left;
+  text-decoration: none;
+  color:#999;
+  width: 100%;
+  font-size: large;
+}
+
+.nav-link:hover {
+  color: white;
+}
