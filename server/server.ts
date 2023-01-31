@@ -1,27 +1,41 @@
 import express from 'express';
-import {PrismaClient} from '@prisma/client';
+import cors from 'cors';
+import { PrismaClient } from '@prisma/client';
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000;
+
 
 const prisma = new PrismaClient()
 
 
-async function main() {
-  let allStudents = await prisma.student.findMany();
-  console.log(allStudents)
-}
+// GET all students
+app.get("/students", (req, res) => {
+  let allStudents = prisma.student.findMany().then(value => {
+    res.json({ students: value });
+  }).catch(err => {
+    res.json({ err: err });
+  });
+});
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+
+// POST new student
+app.post("/students", express.json(), async (req, res) => {
+  let student = req.body;
+  prisma.student.create({
+    data: {
+      firstName: student.firstName,
+      familyName: student.familyName,
+      dateOfBirth: student.dateOfBirth
+    }
+  }).catch(err => {
+    res.json({ err: err })
+  }).then(() => {
+    res.json({ success: true })
+  });
+});
 
 app.listen(PORT, () =>
-  console.log(`Example app listening on port ${PORT}!`),
+  console.log(`Student manager backend listening on port ${PORT}!`),
 );
