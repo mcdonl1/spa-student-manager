@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 type Student = {
   firstName: string;
   familyName: string;
-  dateOfBirth: Date;
+  dateOfBirth: Date | string;
   id?: number;
 }
 
@@ -25,7 +25,7 @@ const handleStudentSubmit = async (firstName: string, familyName: string, dateOf
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(student)
   });
-  console.log(res)
+  console.log(res);
 }
 
 export default function Students() {
@@ -50,53 +50,60 @@ export default function Students() {
   return <>
     <NavBar />
     <div className="page-content">
-      <div className="create-student-form">
-        <form onSubmit={() => handleStudentSubmit(firstName, familyName, dateOfBirth)}>
-          <label htmlFor="first-name">First Name</label>
-          <input
-            type="text"
-            required
-            placeholder="John"
-            id="first-name"
-            value={firstName}
-            onChange={event => {
-              setFirstName(event.target.value);
-            }}
-          />
-          <label htmlFor="family-name">Family Name</label>
-          <input
-            type="text"
-            required
-            placeholder="Doe"
-            id="family-name"
-            value={familyName}
-            onChange={event => {
-              setFamilyName(event.target.value);
-            }}
-          />
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <input
-            type="date"
-            required
-            id="date-of-birth"
-            value={dateOfBirth}
-            onChange={event => {
-              let newDate = new Date(event.target.value + "T00:00:00.000Z")
-              if (!isNaN(newDate.getTime())) {
-                setDateOfBirth(event.target.value);
-              }
-            }}
-          />
-          <button
-            type="submit"
-          >
-            Submit
-          </button>
-        </form>
-
-      </div>
-      <div>{JSON.stringify(students)}</div>
-
+      <form className="create-student-form" onSubmit={() => handleStudentSubmit(firstName, familyName, dateOfBirth)}>
+        <label htmlFor="first-name">First Name</label>
+        <input
+          type="text"
+          required
+          placeholder="John"
+          id="first-name"
+          value={firstName}
+          onChange={event => {
+            setFirstName(event.target.value);
+          }}
+        />
+        <label htmlFor="family-name">Family Name</label>
+        <input
+          type="text"
+          required
+          placeholder="Doe"
+          id="family-name"
+          value={familyName}
+          onChange={event => {
+            setFamilyName(event.target.value);
+          }}
+        />
+        <label htmlFor="date-of-birth">Date of Birth</label>
+        <input
+          type="date"
+          required
+          id="date-of-birth"
+          value={dateOfBirth}
+          onChange={event => {
+            let newDate = new Date(event.target.value + "T00:00:00.000Z")
+            if (!isNaN(newDate.getTime())) {
+              setDateOfBirth(event.target.value);
+            }
+          }}
+        />
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+      <table className="student-table">
+        <tr>
+          <th>First Name</th>
+          <th>Family Name</th>
+          <th>Date of Birth</th>
+        </tr>
+        {students.map(student => <tr key={student.id} className="student-row">
+          <td>{student.firstName}</td>
+          <td>{student.familyName}</td>
+          <td>{new Date(student.dateOfBirth).toDateString()}</td>
+        </tr>)}
+      </table>
     </div>
   </>
 }
