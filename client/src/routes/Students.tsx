@@ -81,9 +81,9 @@ export default function Students() {
     <NavBar />
     <div className="page-content">
       <h2>Students</h2>
-      <div className="add-student-div">
+      <div className="add-entry-div">
         <label className="form-title" htmlFor="create-student-form">Add a student</label>
-        <form id="create-student-form" className="create-student-form" onSubmit={(event) => handleStudentSubmit(event, firstName, familyName, dateOfBirth)}>
+        <form id="create-student-form" className="create-entry-form" onSubmit={event => handleStudentSubmit(event, firstName, familyName, dateOfBirth)}>
           <label htmlFor="first-name">First Name</label>
           <input
             type="text"
@@ -123,7 +123,7 @@ export default function Students() {
           <button className="submit-btn" type="submit">Submit</button>
         </form>
       </div>
-      <table className="student-table">
+      <table className="entry-table">
         <thead>
           <tr>
             <th>First Name</th>
@@ -132,7 +132,7 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {students.map(student => <tr key={student.id} className="student-row">
+          {students.map(student => <tr key={student.id} className="entry-row">
             <td>{student.firstName}</td>
             <td>{student.familyName}</td>
             <td>{new Date(student.dateOfBirth).toDateString()}</td>

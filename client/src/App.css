@@ -16,7 +16,7 @@
   overflow-y: auto;
 }
 
-.create-student-form {
+.create-entry-form {
   display: flex;
   flex-direction: column;
   width: 40%;
@@ -24,11 +24,11 @@
   margin-top: 0.5rem;
 }
 
-.create-student-form input {
+.create-entry-form input {
   margin-bottom: 1rem;
 }
 
-.create-student-form label {
+.create-entry-form label {
   color:rgb(152, 152, 152);
 }
 
@@ -112,22 +112,22 @@
   }
 }
 
-.student-table {
+.entry-table {
   border-collapse: collapse;
   width: 90%;
 }
 
-.student-table td, .student-table th {
+.entry-table td, .entry-table th {
   border: 1px solid rgb(66, 66, 66);
   padding: 8px;
   text-align: left;
 }
 
-.student-table tr:nth-child(even){background-color: #393939;}
+.entry-table tr:nth-child(even){background-color: #393939;}
 
-.student-table tr:hover {background-color: rgb(90, 90, 90);}
+.entry-table tr:hover {background-color: rgb(90, 90, 90);}
 
-.student-table th {
+.entry-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -150,7 +150,7 @@ input:focus {
   border-bottom: 2px solid rgb(140, 137, 137);
 }
 
-.add-student-div {
+.add-entry-div {
   display: flex;
   flex-direction: column;
   width: 90%;

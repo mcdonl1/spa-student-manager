@@ -11,51 +11,51 @@ const prisma = new PrismaClient()
 
 
 // GET all students
-app.get("/students", (req, res) => {
-  let allStudents = prisma.student.findMany().then(value => {
-    res.json({ students: value });
-  }).catch(err => {
-    res.json({ err: err });
-  });
+app.get("/students", async (req, res) => {
+  let allStudents = await prisma.student.findMany()
+  res.json({ students: allStudents });
 });
 
 // POST new student
 app.post("/students", express.json(), async (req, res) => {
-  let student = req.body;
-  prisma.student.create({
+  const student = req.body;
+  const createStudent = await prisma.student.create({
     data: {
       firstName: student.firstName,
       familyName: student.familyName,
       dateOfBirth: student.dateOfBirth
     }
-  }).catch(err => {
-    res.json({ err: err })
-  }).then(() => {
-    res.json({ success: true })
   });
+  if (createStudent) {
+    res.status(200);
+    res.json({ success: true });
+  } else {
+    res.status(500);
+    res.json({ err: true })
+  }
 });
 
 // GET all courses
-app.get("/courses", (req, res) => {
-  let allStudents = prisma.course.findMany().then(value => {
-    res.json({ students: value });
-  }).catch(err => {
-    res.json({ err: err });
-  });
+app.get("/courses", async (req, res) => {
+  let allCourses = await prisma.course.findMany();
+  res.json({ courses: allCourses });
 });
 
 // POST new course
 app.post("/courses", express.json(), async (req, res) => {
-  let course = req.body;
-  prisma.course.create({
+  const course = req.body;
+  const createCourse = await prisma.course.create({
     data: {
       name: course.name
     }
-  }).catch(err => {
-    res.json({ err: err })
-  }).then(() => {
-    res.json({ success: true })
   });
+  if (createCourse) {
+    res.status(200);
+    res.json({ success: true });
+  } else {
+    res.status(500);
+    res.json({ err: true })
+  }
 });
 
 app.listen(PORT, () =>
