@@ -16,3 +16,8 @@ model Student {
   familyName  String
   dateOfBirth DateTime
 }
+
+model Course {
+  id   Int    @id @default(autoincrement())
+  name String
+}

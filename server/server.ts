@@ -19,7 +19,6 @@ app.get("/students", (req, res) => {
   });
 });
 
-
 // POST new student
 app.post("/students", express.json(), async (req, res) => {
   let student = req.body;
@@ -28,6 +27,29 @@ app.post("/students", express.json(), async (req, res) => {
       firstName: student.firstName,
       familyName: student.familyName,
       dateOfBirth: student.dateOfBirth
+    }
+  }).catch(err => {
+    res.json({ err: err })
+  }).then(() => {
+    res.json({ success: true })
+  });
+});
+
+// GET all courses
+app.get("/courses", (req, res) => {
+  let allStudents = prisma.course.findMany().then(value => {
+    res.json({ students: value });
+  }).catch(err => {
+    res.json({ err: err });
+  });
+});
+
+// POST new course
+app.post("/courses", express.json(), async (req, res) => {
+  let course = req.body;
+  prisma.course.create({
+    data: {
+      name: course.name
     }
   }).catch(err => {
     res.json({ err: err })
