@@ -28,12 +28,12 @@ const GRADES = ["A", "B", "C", "D", "E", "F"];
 
 export default function Results() {
   const [students, setStudents] = useState<Student[]>([]);
-  const [studentId, setStudentId] = useState<number>();
+  const [studentId, setStudentId] = useState<string>();
   const [courses, setCourses] = useState<Course[]>([]);
-  const [courseId, setCourseId] = useState<number>();
+  const [courseId, setCourseId] = useState<string>();
   const [results, setResults] = useState<Result[]>([]);
   const [tableRows, setTableRows] = useState<ResultsTableRows>({});
-  const [grade, setGrade] = useState(GRADES[0]);
+  const [grade, setGrade] = useState<string>();
 
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Results() {
           setStudents([]);
         } else {
           setStudents(body.students ?? []);
-          setStudentId(body.students[0].id ?? undefined);
+          //setStudentId(body.students[0].id ?? undefined);
         }
       })
     });
@@ -55,7 +55,7 @@ export default function Results() {
           setCourses([]);
         } else {
           setCourses(body.courses ?? [])
-          setCourseId(body.courses[0].id ?? undefined);
+          //setCourseId(body.courses[0].id ?? undefined);
         }
       })
     });
@@ -130,14 +130,16 @@ export default function Results() {
         <form
           id="create-result-form"
           className="create-entry-form"
-          onSubmit={event => handleResultSubmit(event, grade, courseId as number, studentId as number)}
+          onSubmit={event => handleResultSubmit(event, grade, parseInt(courseId as string), parseInt(studentId as string))}
         >
           <label htmlFor="select-course">Course</label>
           <select
+            required
             id="select-course"
             value={courseId}
-            onChange={event => setCourseId(parseInt(event.target.value))}
+            onChange={event => setCourseId(event.target.value)}
           >
+            <option value=""></option>
             {courses.map(course => {
               return <option key={course.id} value={course.id}>
                 {course.name}
@@ -146,10 +148,12 @@ export default function Results() {
           </select>
           <label htmlFor="select-student">Student</label>
           <select
+            required
             id="select-student"
             value={studentId}
-            onChange={event => setStudentId(parseInt(event.target.value))}
+            onChange={event => setStudentId(event.target.value)}
           >
+            <option value=""></option>
             {students.map(student => {
               return <option key={student.id} value={student.id}>
                 {`${student.firstName} ${student.familyName}`}
@@ -158,10 +162,11 @@ export default function Results() {
           </select>
           <label htmlFor="select-grade">Grade</label>
           <select
+            required
             id="select-grade"
             value={grade}
             onChange={event => setGrade(event.target.value)}
-          >
+          > <option value=""></option>
             {GRADES.map(grade => <option key={grade} value={grade}>{grade}</option>)}
           </select>
           <button className="submit-btn" type="submit">Submit</button>
