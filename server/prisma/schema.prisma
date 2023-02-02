@@ -15,9 +15,20 @@ model Student {
   firstName   String
   familyName  String
   dateOfBirth DateTime
+  results     Result[]
 }
 
 model Course {
-  id   Int    @id @default(autoincrement())
-  name String
+  id      Int      @id @default(autoincrement())
+  name    String
+  results Result[]
+}
+
+model Result {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  courseId  Int
+  Course    Course  @relation(fields: [courseId], references: [id])
+  grade     String  @db.VarChar(1)
 }

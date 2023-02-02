@@ -2,14 +2,14 @@ import NavBar from "../components/SideNav";
 import { useState, useEffect } from "react";
 
 
-type Student = {
+export type Student = {
   firstName: string;
   familyName: string;
   dateOfBirth: Date | string;
   id?: number;
 }
 
-type StudentsResponse = {
+export type StudentsResponse = {
   students?: Student[];
   err?: any;
 }

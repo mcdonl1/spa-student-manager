@@ -58,6 +58,31 @@ app.post("/courses", express.json(), async (req, res) => {
   }
 });
 
+// GET all results
+app.get("/results", async (req, res) => {
+  let allResults = await prisma.result.findMany();
+  res.json({ results: allResults });
+});
+
+// POST new course
+app.post("/results", express.json(), async (req, res) => {
+  const result = req.body;
+  const createResult = await prisma.result.create({
+    data: {
+      studentId: result.studentId,
+      courseId: result.courseId,
+      grade: result.grade
+    }
+  });
+  if (createResult) {
+    res.status(200);
+    res.json({ success: true });
+  } else {
+    res.status(500);
+    res.json({ err: true })
+  }
+});
+
 app.listen(PORT, () =>
   console.log(`Student manager backend listening on port ${PORT}!`),
 );
