@@ -50,6 +50,7 @@ export default function Students() {
     familyName: string,
     dateOfBirth: string
   ) => {
+    event.preventDefault();
     let student: Student = {
       firstName: firstName,
       familyName: familyName,
@@ -71,9 +72,9 @@ export default function Students() {
     let body = await res.json();
     if (body.success) {
       alert(`Student: ${student.firstName} ${student.familyName} has been successfully added to the database.`);
+      location.reload();
     } else {
       alert("Something went wrong. Please try again.");
-      event.preventDefault();
     }
   }
 

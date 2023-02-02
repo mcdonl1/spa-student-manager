@@ -30,7 +30,7 @@ export default function Courses() {
   }, []);
 
   const handleCourseSubmit = async (event: React.FormEvent<HTMLFormElement>, courseName: string) => {
-
+    event.preventDefault();
     let course: Course = {
       name: courseName,
     }
@@ -43,9 +43,9 @@ export default function Courses() {
     let body = await res.json();
     if (body.success) {
       alert(`Course: ${course.name} has been successfully added to the database.`);
+      location.reload();
     } else {
       alert("Something went wrong. Please try again.");
-      event.preventDefault();
     }
   }
 

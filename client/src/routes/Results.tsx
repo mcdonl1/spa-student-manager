@@ -100,6 +100,7 @@ export default function Results() {
     courseId: number,
     studentId: number
   ) => {
+    event.preventDefault();
     let result: Result = {
       grade: grade,
       courseId: courseId,
@@ -115,9 +116,9 @@ export default function Results() {
     let body = await res.json();
     if (body.success) {
       alert(`Result has been successfully added to the database.`);
+      location.reload();
     } else {
       alert("Something went wrong. Please try again.");
-      event.preventDefault();
     }
   }
 
@@ -130,7 +131,7 @@ export default function Results() {
         <form
           id="create-result-form"
           className="create-entry-form"
-          onSubmit={event => handleResultSubmit(event, grade, parseInt(courseId as string), parseInt(studentId as string))}
+          onSubmit={event => handleResultSubmit(event, grade as string, parseInt(courseId as string), parseInt(studentId as string))}
         >
           <label htmlFor="select-course">Course</label>
           <select
