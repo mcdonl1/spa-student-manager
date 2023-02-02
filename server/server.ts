@@ -7,7 +7,7 @@ app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 
 // GET all students
